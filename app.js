@@ -251,6 +251,9 @@ async function handleCreate(e) {
 function renderDashboard() {
   if (!currentMeeting) return;
   var m = currentMeeting;
+  m.startSlot = Number(m.startSlot);
+  m.endSlot = Number(m.endSlot);
+  m.duration = Number(m.duration);
   document.getElementById('org-title').textContent = m.title;
   document.getElementById('org-info').textContent =
     m.organizerName+' · '+m.duration+'분 · 후보 '+m.dates.length+'일 · '+fmtTime(m.startSlot)+' - '+fmtTime(m.endSlot);
@@ -384,9 +387,13 @@ function copyLink() {
 // ── 참여자 폼 ─────────────────────────────────────────────────
 function fillParticipantForm() {
   var m = currentMeeting;
-  document.getElementById('pname-title').textContent = m.title;
+  // 문자열로 저장된 경우 숫자로 변환
+  m.startSlot = Number(m.startSlot);
+  m.endSlot = Number(m.endSlot);
+  m.duration = Number(m.duration);
+  document.getElementById('pname-title').textContent = m.title || '회의';
   document.getElementById('pname-desc').textContent =
-    m.organizerName+'님이 회의 일정을 조율 중입니다. '+m.duration+'분 · '+fmtTime(m.startSlot)+' - '+fmtTime(m.endSlot);
+    (m.organizerName||'주최자')+'님이 회의 일정을 조율 중입니다. '+m.duration+'분 · '+fmtTime(m.startSlot)+' - '+fmtTime(m.endSlot);
   document.getElementById('pname-input').value = '';
 }
 
@@ -394,6 +401,10 @@ function proceedToSelect() {
   var name = document.getElementById('pname-input').value.trim();
   if (!name) return;
   currentName = name;
+  // 숫자 변환 보장
+  currentMeeting.startSlot = Number(currentMeeting.startSlot);
+  currentMeeting.endSlot = Number(currentMeeting.endSlot);
+  currentMeeting.duration = Number(currentMeeting.duration);
   var existing = (currentMeeting.participants||{})[name];
   unavailable = new Set(existing ? existing.unavailableSlots : []);
   document.getElementById('psel-name').textContent = name;
