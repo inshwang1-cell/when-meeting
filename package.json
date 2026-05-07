@@ -1,0 +1,13 @@
+{
+  "name": "when-meeting-scheduler",
+  "version": "1.0.0",
+  "description": "스마트 회의 일정 조율 서비스 - 엔디에스 전략기획팀",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
