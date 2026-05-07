@@ -86,14 +86,16 @@ const getMeetingIdFromUrl = () => {
 // ─── 초기화 ───
 window.addEventListener('load', async () => {
   const meetingId = getMeetingIdFromUrl();
+  console.log('[When?] 페이지 로드, meetingId:', meetingId, '| URL:', window.location.href);
 
-  if (meetingId) {
+  if (meetingId && meetingId !== 'undefined' && meetingId !== 'null') {
     navigate('loading');
     try {
+      console.log('[When?] API 호출:', `/api/meetings?id=${meetingId}`);
       const meeting = await apiGetMeeting(meetingId);
-      if (meeting) {
+      console.log('[When?] API 응답:', meeting);
+      if (meeting && meeting.id) {
         currentMeeting = meeting;
-        // 주최자가 자기 회의로 돌아온 건지 참여자인지를 sessionStorage로 추적
         const isOrganizer = sessionStorage.getItem(`organizer:${meetingId}`) === '1';
         if (isOrganizer) {
           displayOrganizerDashboard();
@@ -107,8 +109,8 @@ window.addEventListener('load', async () => {
         navigate('home');
       }
     } catch (e) {
-      console.error(e);
-      alert('회의를 불러올 수 없습니다.');
+      console.error('[When?] 오류:', e);
+      alert(`회의를 불러올 수 없습니다.\n오류: ${e.message}`);
       navigate('home');
     }
   } else {
