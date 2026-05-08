@@ -168,6 +168,23 @@ button{cursor:pointer;font-family:inherit;border:none;transition:all .2s;}
 #loading-view.active{display:flex;}
 .loading-txt{font-family:'JetBrains Mono',monospace;color:#71717a;font-size:.875rem;animation:blink 2s infinite;}
 section+section{margin-top:3rem;}
+
+/* 내 회의 목록 */
+.my-meetings{margin-top:3rem;}
+.my-meetings-title{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;color:#a1a1aa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem;}
+.my-meetings-title::after{content:'';flex:1;height:1px;background:#e4e4e7;}
+.my-list{display:flex;flex-direction:column;gap:.75rem;}
+.my-card{background:white;border:1px solid #e4e4e7;border-radius:1rem;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;cursor:pointer;transition:all .2s;}
+.my-card:hover{border-color:#f59e0b;box-shadow:0 2px 12px rgba(245,158,11,.15);}
+.my-card-left{}
+.my-card-title{font-family:'Fraunces',serif;font-weight:700;font-size:1.125rem;margin-bottom:.25rem;}
+.my-card-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a1a1aa;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
+.my-card-meta span{display:flex;align-items:center;gap:.25rem;}
+.my-card-right{display:flex;align-items:center;gap:.75rem;}
+.my-card-cnt{display:flex;align-items:center;gap:.375rem;background:#f4f4f5;padding:.375rem .75rem;border-radius:.5rem;font-size:.8rem;font-family:'JetBrains Mono',monospace;color:#52525b;}
+.my-card-cnt.has-resp{background:#fef3c7;color:#92400e;}
+.my-card-arrow{color:#a1a1aa;font-size:1rem;}
+.my-empty{text-align:center;padding:2rem;color:#a1a1aa;font-size:.875rem;border:2px dashed #e4e4e7;border-radius:1rem;}
 </style>
 </head>
 <body>
@@ -214,7 +231,13 @@ section+section{margin-top:3rem;}
         <div class="step-desc">참여자들이 응답하면 AI가 실시간으로 분석해서 최대 인원이 가능한 시간을 순위별로 추천합니다.</div>
       </div>
     </div>
-    <footer class="home-footer">
+    <!-- 내 회의 목록 -->
+    <div class="my-meetings" id="my-meetings-section">
+      <div class="my-meetings-title">내가 만든 회의</div>
+      <div class="my-list" id="my-meetings-list"></div>
+    </div>
+
+    <footer class="home-footer" style="margin-top:3rem;">
       <div class="credit">BUILT BY <strong>엔디에스 전략기획팀</strong> · 2026</div>
       <div class="credit">SHARE LINKS, NOT CHAOS.</div>
     </footer>
@@ -394,8 +417,8 @@ function getMId(){return new URLSearchParams(location.search).get('m');}
 function getShareUrl(id){return location.origin+location.pathname+'?m='+id;}
 
 function showView(n){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});var el=document.getElementById(n+'-view');if(el)el.classList.add('active');window.scrollTo(0,0);}
-function navigate(n){showView(n);if(n==='create')initCalendar();if(n==='organizer')renderDashboard();}
-function goHome(){currentMeeting=null;currentName=null;unavailable=new Set();selectedDates=new Set();history.pushState({},'',location.pathname);showView('home');}
+function navigate(n){showView(n);if(n==='create')initCalendar();if(n==='organizer')renderDashboard();if(n==='home')renderMyMeetings();}
+function goHome(){currentMeeting=null;currentName=null;unavailable=new Set();selectedDates=new Set();history.pushState({},'',location.pathname);showView('home');renderMyMeetings();}
 
 window.addEventListener('load',async function(){
   var id=getMId();
@@ -448,7 +471,9 @@ async function handleCreate(e){
   var btn=e.target.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='생성 중...';
   try{
     var id=genId(),meeting={id:id,title:title,organizerName:orgName,duration:duration,startSlot:startSlot,endSlot:endSlot,dates:dates,createdAt:Date.now(),participants:{}};
-    var result=await apiCreate(meeting);currentMeeting=result;sessionStorage.setItem('org:'+id,'1');history.pushState({},'','?m='+id);navigate('organizer');
+    var result=await apiCreate(meeting);currentMeeting=result;sessionStorage.setItem('org:'+id,'1');
+    saveMyMeeting(result);
+    history.pushState({},'','?m='+id);navigate('organizer');
   }catch(err){errEl.textContent='생성 실패: '+err.message;errEl.classList.remove('hidden');btn.disabled=false;btn.textContent='회의 만들기 →';}
 }
 
@@ -488,6 +513,112 @@ function renderHeatmap(m,sm,total){
     for(var date of m.dates){var sid=date+'_'+s,info=sm[sid]||{available:total,names:[]},ratio=total>0?info.available/total:1,cc=ratio===1?'c5':ratio>=.75?'c4':ratio>=.5?'c3':ratio>=.25?'c2':'c1';html+='<div class="hc '+cc+'" title="'+(info.names.length?'불가: '+info.names.join(', '):'전원 가능')+'">'+info.available+'/'+total+'</div>';}
     html+='</div>';}
   html+='</div>';document.getElementById('org-heatmap').innerHTML=html;
+}
+
+// ── 내 회의 목록 (localStorage) ──────────────────────
+function saveMyMeeting(m){
+  try{
+    var list=getMyMeetings();
+    // 이미 있으면 업데이트, 없으면 추가
+    var idx=list.findIndex(function(x){return x.id===m.id;});
+    var item={id:m.id,title:m.title,organizerName:m.organizerName,duration:m.duration,dates:m.dates,createdAt:m.createdAt||Date.now()};
+    if(idx>=0)list[idx]=item;else list.unshift(item);
+    // 최대 20개 유지
+    if(list.length>20)list=list.slice(0,20);
+    localStorage.setItem('my-meetings',JSON.stringify(list));
+  }catch(e){}
+}
+
+function getMyMeetings(){
+  try{var d=localStorage.getItem('my-meetings');return d?JSON.parse(d):[]}catch(e){return[];}
+}
+
+function deleteMyMeeting(id){
+  if(!confirm('이 회의를 목록에서 삭제할까요?'))return;
+  try{
+    var list=getMyMeetings().filter(function(x){return x.id!==id;});
+    localStorage.setItem('my-meetings',JSON.stringify(list));
+    renderMyMeetings();
+  }catch(e){}
+}
+
+async function renderMyMeetings(){
+  var list=getMyMeetings();
+  var el=document.getElementById('my-meetings-list');
+  var section=document.getElementById('my-meetings-section');
+  if(!el)return;
+
+  if(list.length===0){
+    section.style.display='none';
+    return;
+  }
+  section.style.display='block';
+
+  // 각 회의의 최신 참여자 수를 가져오기 (비동기)
+  var html='';
+  for(var i=0;i<list.length;i++){
+    var m=list[i];
+    var dateStr=m.dates&&m.dates.length>0?m.dates[0]+'외 '+(m.dates.length-1)+'일':'-';
+    if(m.dates&&m.dates.length===1){var d=parseDate(m.dates[0]),days=['일','월','화','수','목','금','토'];dateStr=(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')';}
+    var created=new Date(m.createdAt);
+    var createdStr=(created.getMonth()+1)+'/'+created.getDate()+' '+('0'+created.getHours()).slice(-2)+':'+('0'+created.getMinutes()).slice(-2);
+    html+='<div class="my-card" onclick="openMyMeeting(\'' + m.id + '\')">';
+    html+='<div class="my-card-left">';
+    html+='<div class="my-card-title">'+m.title+'</div>';
+    html+='<div class="my-card-meta">';
+    html+='<span>✦ '+m.organizerName+'</span>';
+    html+='<span>⏱ '+m.duration+'분</span>';
+    html+='<span>📅 '+dateStr+'</span>';
+    html+='<span>🕐 '+createdStr+' 생성</span>';
+    html+='</div></div>';
+    html+='<div class="my-card-right">';
+    html+='<div class="my-card-cnt" id="cnt-'+m.id+'">👥 확인 중...</div>';
+    html+='<button onclick="deleteMyMeeting(''+m.id+'',event)" style="background:none;border:none;color:#d4d4d8;font-size:1rem;padding:.25rem;cursor:pointer;" title="목록에서 삭제">✕</button>';
+    html+='<div class="my-card-arrow">→</div>';
+    html+='</div></div>';
+  }
+  el.innerHTML=html;
+
+  // 비동기로 참여자 수 업데이트
+  list.forEach(async function(m){
+    try{
+      var fresh=await apiGet(m.id);
+      var cntEl=document.getElementById('cnt-'+m.id);
+      if(!cntEl)return;
+      if(fresh){
+        var cnt=Object.keys(fresh.participants||{}).length;
+        cntEl.textContent='👥 '+cnt+'명 응답';
+        cntEl.className='my-card-cnt'+(cnt>0?' has-resp':'');
+        // 최신 데이터로 저장 업데이트
+        saveMyMeeting(fresh);
+      }else{
+        cntEl.textContent='⚠ 만료됨';
+      }
+    }catch(e){
+      var cntEl=document.getElementById('cnt-'+m.id);
+      if(cntEl)cntEl.textContent='👥 -';
+    }
+  });
+}
+
+async function openMyMeeting(id){
+  showView('loading');
+  try{
+    var m=await apiGet(id);
+    if(m){
+      currentMeeting=m;
+      sessionStorage.setItem('org:'+id,'1');
+      history.pushState({},'','?m='+id);
+      navigate('organizer');
+    }else{
+      alert('회의를 찾을 수 없습니다. 삭제되었거나 만료되었을 수 있어요.');
+      showView('home');
+      renderMyMeetings();
+    }
+  }catch(e){
+    alert('불러오기 실패: '+e.message);
+    showView('home');
+  }
 }
 
 function renderParts(parts){
