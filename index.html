@@ -357,7 +357,8 @@ var IS_LOCAL = (location.protocol==='file:'||location.hostname==='localhost');
 var currentMeeting=null,currentName=null,unavailable=new Set(),dragMode=null,calYear,calMonth,selectedDates=new Set();
 
 function genId(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);}
-function fmtDate(iso){var d=new Date(iso),days=['일','월','화','수','목','금','토'];return(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')';}
+function parseDate(iso){var p=iso.split('-');return new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));}
+function fmtDate(iso){var d=parseDate(iso),days=['일','월','화','수','목','금','토'];return(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')';}
 function fmtTime(s){var t=s*30,h=Math.floor(t/60),m=t%60;return('0'+h).slice(-2)+':'+('0'+m).slice(-2);}
 
 async function apiGet(id){
@@ -412,7 +413,7 @@ function renderCalendar(){
   var grid=document.getElementById('cal-days');grid.innerHTML='';
   for(var i=0;i<first.getDay();i++){var e=document.createElement('div');e.className='db empty';grid.appendChild(e);}
   for(var day=1;day<=last.getDate();day++){
-    var d=new Date(calYear,calMonth,day),iso=d.toISOString().slice(0,10),isPast=d<today;
+    var d=new Date(calYear,calMonth,day),iso=calYear+'-'+('0'+(calMonth+1)).slice(-2)+'-'+('0'+day).slice(-2),isPast=d<today;
     var btn=document.createElement('button');btn.type='button';
     btn.className='db'+(isPast?' past':'')+(selectedDates.has(iso)?' sel':'');
     btn.textContent=day;btn.dataset.iso=iso;
@@ -468,7 +469,7 @@ function renderRecs(m,sm,total){
 
 function renderHeatmap(m,sm,total){
   var dn=['일','월','화','수','목','금','토'],html='<div class="gt"><div class="gr"><div class="tl"></div>';
-  for(var date of m.dates){var d=new Date(date),dow=d.getDay(),cls=dow===0?' dsun':dow===6?' dsat':'';html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span>'+dn[dow]+'</span></div>';}
+  for(var date of m.dates){var d=parseDate(date),dow=d.getDay(),cls=dow===0?' dsun':dow===6?' dsat':'';html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span>'+dn[dow]+'</span></div>';}
   html+='</div>';
   for(var s=m.startSlot;s<m.endSlot;s++){var ih=s%2===0;html+='<div class="gr'+(ih?' hr':'')+'"><div class="tl'+(ih?' h':' hf')+'">'+fmtTime(s)+'</div>';
     for(var date of m.dates){var sid=date+'_'+s,info=sm[sid]||{available:total,names:[]},ratio=total>0?info.available/total:1,cc=ratio===1?'c5':ratio>=.75?'c4':ratio>=.5?'c3':ratio>=.25?'c2':'c1';html+='<div class="hc '+cc+'" title="'+(info.names.length?'불가: '+info.names.join(', '):'전원 가능')+'">'+info.available+'/'+total+'</div>';}
@@ -503,10 +504,10 @@ function proceedToSelect(){
 
 function renderSelectGrid(){
   var m=currentMeeting,dn=['일','월','화','수','목','금','토'],html='<div class="gt"><div class="gr"><div class="tl"></div>';
-  for(var date of m.dates){var d=new Date(date),dow=d.getDay(),cls=dow===0?' dsun':dow===6?' dsat':'';html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span class="dwl'+(dow===0?' sun':dow===6?' sat':'')+'">'+dn[dow]+'</span></div>';}
+  for(var date of m.dates){var d=parseDate(date),dow=d.getDay(),cls=dow===0?' dsun':dow===6?' dsat':'';html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span class="dwl'+(dow===0?' sun':dow===6?' sat':'')+'">'+dn[dow]+'</span></div>';}
   html+='</div>';
   for(var s=m.startSlot;s<m.endSlot;s++){var ih=s%2===0;html+='<div class="gr'+(ih?' hr':'')+'"><div class="tl'+(ih?' h':' hf')+'">'+fmtTime(s)+'</div>';
-    for(var date of m.dates){var sid=date+'_'+s,dow=new Date(date).getDay(),isUn=unavailable.has(sid),cc=dow===0?' ssun':dow===6?' ssat':'';html+='<button type="button" class="ts'+(isUn?' un':cc)+'" data-sid="'+sid+'" onmousedown="sd(\''+sid+'\')" onmouseenter="se(\''+sid+'\')" ontouchstart="sd(\''+sid+'\');event.preventDefault();">'+(isUn?'✕':'')+'</button>';}
+    for(var date of m.dates){var sid=date+'_'+s,dow=parseDate(date).getDay(),isUn=unavailable.has(sid),cc=dow===0?' ssun':dow===6?' ssat':'';html+='<button type="button" class="ts'+(isUn?' un':cc)+'" data-sid="'+sid+'" onmousedown="sd(\''+sid+'\')" onmouseenter="se(\''+sid+'\')" ontouchstart="sd(\''+sid+'\');event.preventDefault();">'+(isUn?'✕':'')+'</button>';}
     html+='</div>';}
   html+='</div>';document.getElementById('psel-grid').innerHTML=html;updateCnt();
 }
@@ -514,7 +515,7 @@ function renderSelectGrid(){
 function sd(sid){dragMode=unavailable.has(sid)?'remove':'add';tgl(sid);}
 function se(sid){if(!dragMode)return;if(dragMode==='add'&&!unavailable.has(sid)){unavailable.add(sid);us(sid);updateCnt();}if(dragMode==='remove'&&unavailable.has(sid)){unavailable.delete(sid);us(sid);updateCnt();}}
 function tgl(sid){if(unavailable.has(sid))unavailable.delete(sid);else unavailable.add(sid);us(sid);updateCnt();}
-function us(sid){var btn=document.querySelector('[data-sid="'+sid+'"]');if(!btn)return;var dow=new Date(sid.split('_')[0]).getDay();if(unavailable.has(sid)){btn.className='ts un';btn.textContent='✕';}else{btn.className='ts'+(dow===0?' ssun':dow===6?' ssat':'');btn.textContent='';}}
+function us(sid){var btn=document.querySelector('[data-sid="'+sid+'"]');if(!btn)return;var dow=parseDate(sid.split('_')[0]).getDay();if(unavailable.has(sid)){btn.className='ts un';btn.textContent='✕';}else{btn.className='ts'+(dow===0?' ssun':dow===6?' ssat':'');btn.textContent='';}}
 function updateCnt(){document.getElementById('psel-count').textContent=unavailable.size;}
 function clearSlots(){unavailable.clear();renderSelectGrid();}
 
