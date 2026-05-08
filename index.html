@@ -43,6 +43,20 @@ button{cursor:pointer;font-family:inherit;border:none;transition:all .2s;}
 .step-ico{font-size:1.5rem;margin-bottom:.75rem;}
 .step-ttl{font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;margin-bottom:.375rem;}
 .step-desc{font-size:.875rem;color:#71717a;line-height:1.65;}
+
+/* 내 회의 목록 */
+.my-section{margin-bottom:4rem;}
+.my-card{background:white;border:1px solid #e4e4e7;border-radius:1rem;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;cursor:pointer;transition:all .2s;margin-bottom:.75rem;}
+.my-card:hover{border-color:#f59e0b;box-shadow:0 2px 12px rgba(245,158,11,.15);}
+.my-card-title{font-family:'Fraunces',serif;font-weight:700;font-size:1.125rem;margin-bottom:.25rem;}
+.my-card-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a1a1aa;display:flex;gap:.75rem;flex-wrap:wrap;}
+.my-card-right{display:flex;align-items:center;gap:.75rem;}
+.my-cnt{background:#f4f4f5;padding:.375rem .75rem;border-radius:.5rem;font-size:.8rem;font-family:'JetBrains Mono',monospace;color:#52525b;}
+.my-cnt.active{background:#fef3c7;color:#92400e;}
+.my-del{background:none;border:none;color:#d4d4d8;font-size:1rem;padding:.25rem .5rem;cursor:pointer;}
+.my-del:hover{color:#ef4444;}
+.my-empty{text-align:center;padding:2rem;color:#a1a1aa;font-size:.875rem;border:2px dashed #e4e4e7;border-radius:1rem;}
+
 .home-footer{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid #e4e4e7;flex-wrap:wrap;gap:1rem;}
 .credit{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a1a1aa;letter-spacing:.05em;}
 .credit strong{color:#1a1a1a;}
@@ -127,24 +141,23 @@ button{cursor:pointer;font-family:inherit;border:none;transition:all .2s;}
 .ts:hover{background:#e4e4e7;} .ts.un{background:#ef4444;color:white;border-color:#ef4444;} .ts.un:hover{background:#dc2626;}
 .ts.ssun{background:#fef2f2;border-color:#fecaca;} .ts.ssat{background:#eff6ff;border-color:#bfdbfe;}
 
-/* 참여자 */
-.pg{display:flex;flex-direction:column;gap:1rem;}
+/* 참여자 상세 */
+.pg{display:flex;flex-direction:column;gap:.75rem;}
 .pc{background:white;border:1px solid #e4e4e7;border-radius:1rem;overflow:hidden;}
-.pc-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none;}
-.pc-header:hover{background:#f9f9f9;}
+.pc-hd{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;}
+.pc-hd:hover{background:#fafafa;}
 .pc-left{display:flex;align-items:center;gap:.75rem;}
 .pav{width:2.25rem;height:2.25rem;border-radius:9999px;background:#fef3c7;color:#92400e;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;flex-shrink:0;}
 .pn{font-weight:600;font-size:1rem;}
-.pi{font-size:.75rem;color:#71717a;font-family:'JetBrains Mono',monospace;margin-top:.15rem;}
-.pc-toggle{font-size:.75rem;color:#a1a1aa;display:flex;align-items:center;gap:.25rem;font-family:'JetBrains Mono',monospace;}
+.pi{font-size:.75rem;color:#71717a;font-family:'JetBrains Mono',monospace;margin-top:.1rem;}
+.pc-toggle{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:#a1a1aa;}
 .pc-body{border-top:1px solid #f4f4f5;padding:1.25rem;}
-.pc-body.collapsed{display:none;}
-.slots-wrap{display:flex;flex-direction:column;gap:.5rem;}
-.slot-date-group{margin-bottom:.75rem;}
-.slot-date-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;color:#a1a1aa;letter-spacing:.05em;margin-bottom:.375rem;text-transform:uppercase;}
+.pc-body.coll{display:none;}
+.slot-grp{margin-bottom:.75rem;}
+.slot-date{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;color:#a1a1aa;letter-spacing:.05em;margin-bottom:.375rem;}
 .slot-chips{display:flex;flex-wrap:wrap;gap:.375rem;}
-.slot-chip{display:inline-flex;align-items:center;gap:.25rem;background:#fee2e2;color:#b91c1c;border-radius:.375rem;padding:.25rem .625rem;font-size:.75rem;font-family:'JetBrains Mono',monospace;font-weight:500;}
-.no-slots{font-size:.875rem;color:#22c55e;font-weight:500;display:flex;align-items:center;gap:.375rem;}
+.slot-chip{background:#fee2e2;color:#b91c1c;border-radius:.375rem;padding:.25rem .625rem;font-size:.75rem;font-family:'JetBrains Mono',monospace;font-weight:500;}
+.all-ok{font-size:.875rem;color:#22c55e;font-weight:500;}
 
 /* 버튼 */
 .bsub{background:#1a1a1a;color:#fafafa;padding:1rem 2.5rem;font-weight:600;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem;}
@@ -168,23 +181,6 @@ button{cursor:pointer;font-family:inherit;border:none;transition:all .2s;}
 #loading-view.active{display:flex;}
 .loading-txt{font-family:'JetBrains Mono',monospace;color:#71717a;font-size:.875rem;animation:blink 2s infinite;}
 section+section{margin-top:3rem;}
-
-/* 내 회의 목록 */
-.my-meetings{margin-top:3rem;}
-.my-meetings-title{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:600;color:#a1a1aa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem;}
-.my-meetings-title::after{content:'';flex:1;height:1px;background:#e4e4e7;}
-.my-list{display:flex;flex-direction:column;gap:.75rem;}
-.my-card{background:white;border:1px solid #e4e4e7;border-radius:1rem;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;cursor:pointer;transition:all .2s;}
-.my-card:hover{border-color:#f59e0b;box-shadow:0 2px 12px rgba(245,158,11,.15);}
-.my-card-left{}
-.my-card-title{font-family:'Fraunces',serif;font-weight:700;font-size:1.125rem;margin-bottom:.25rem;}
-.my-card-meta{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#a1a1aa;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
-.my-card-meta span{display:flex;align-items:center;gap:.25rem;}
-.my-card-right{display:flex;align-items:center;gap:.75rem;}
-.my-card-cnt{display:flex;align-items:center;gap:.375rem;background:#f4f4f5;padding:.375rem .75rem;border-radius:.5rem;font-size:.8rem;font-family:'JetBrains Mono',monospace;color:#52525b;}
-.my-card-cnt.has-resp{background:#fef3c7;color:#92400e;}
-.my-card-arrow{color:#a1a1aa;font-size:1rem;}
-.my-empty{text-align:center;padding:2rem;color:#a1a1aa;font-size:.875rem;border:2px dashed #e4e4e7;border-radius:1rem;}
 </style>
 </head>
 <body>
@@ -212,32 +208,18 @@ section+section{margin-top:3rem;}
     </div>
     <div class="how-ttl">사용 방법</div>
     <div class="steps">
-      <div class="step-card">
-        <div class="step-n">STEP 01</div>
-        <div class="step-ico">📅</div>
-        <div class="step-ttl">회의 만들기</div>
-        <div class="step-desc">회의 제목, 소요 시간, 후보 날짜를 입력합니다. 30분 단위로 시간대를 설정할 수 있습니다.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-n">STEP 02</div>
-        <div class="step-ico">🔗</div>
-        <div class="step-ttl">링크 공유</div>
-        <div class="step-desc">생성된 링크를 카톡, 이메일, 문자로 공유하세요. 참여자는 앱 설치 없이 바로 응답할 수 있습니다.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-n">STEP 03</div>
-        <div class="step-ico">🤖</div>
-        <div class="step-ttl">AI 추천 확인</div>
-        <div class="step-desc">참여자들이 응답하면 AI가 실시간으로 분석해서 최대 인원이 가능한 시간을 순위별로 추천합니다.</div>
-      </div>
-    </div>
-    <!-- 내 회의 목록 -->
-    <div class="my-meetings" id="my-meetings-section">
-      <div class="my-meetings-title">내가 만든 회의</div>
-      <div class="my-list" id="my-meetings-list"></div>
+      <div class="step-card"><div class="step-n">STEP 01</div><div class="step-ico">📅</div><div class="step-ttl">회의 만들기</div><div class="step-desc">회의 제목, 소요 시간, 후보 날짜를 입력합니다. 30분 단위로 시간대를 설정할 수 있습니다.</div></div>
+      <div class="step-card"><div class="step-n">STEP 02</div><div class="step-ico">🔗</div><div class="step-ttl">링크 공유</div><div class="step-desc">생성된 링크를 카톡, 이메일, 문자로 공유하세요. 참여자는 앱 설치 없이 바로 응답할 수 있습니다.</div></div>
+      <div class="step-card"><div class="step-n">STEP 03</div><div class="step-ico">🤖</div><div class="step-ttl">AI 추천 확인</div><div class="step-desc">참여자들이 응답하면 AI가 실시간으로 분석해서 최대 인원이 가능한 시간을 순위별로 추천합니다.</div></div>
     </div>
 
-    <footer class="home-footer" style="margin-top:3rem;">
+    <!-- 내 회의 목록 -->
+    <div id="my-section" class="my-section" style="display:none;">
+      <div class="how-ttl">내가 만든 회의</div>
+      <div id="my-list"></div>
+    </div>
+
+    <footer class="home-footer">
       <div class="credit">BUILT BY <strong>엔디에스 전략기획팀</strong> · 2026</div>
       <div class="credit">SHARE LINKS, NOT CHAOS.</div>
     </footer>
@@ -264,7 +246,8 @@ section+section{margin-top:3rem;}
       <div class="fg">
         <label class="fl">후보 날짜 — <span id="date-count">0</span>개 선택</label>
         <div class="cal-wrap">
-          <div class="cal-hd"><div class="cal-ttl" id="cal-title"></div>
+          <div class="cal-hd">
+            <div class="cal-ttl" id="cal-title"></div>
             <div class="cal-nav">
               <button type="button" class="cal-nb" id="cal-prev" onclick="changeMonth(-1)">‹</button>
               <button type="button" class="cal-nb" onclick="changeMonth(1)">›</button>
@@ -272,8 +255,7 @@ section+section{margin-top:3rem;}
           </div>
           <div class="cal-wds">
             <div class="cal-wd sun">일</div><div class="cal-wd">월</div><div class="cal-wd">화</div>
-            <div class="cal-wd">수</div><div class="cal-wd">목</div><div class="cal-wd">금</div>
-            <div class="cal-wd sat">토</div>
+            <div class="cal-wd">수</div><div class="cal-wd">목</div><div class="cal-wd">금</div><div class="cal-wd sat">토</div>
           </div>
           <div class="cal-days" id="cal-days"></div>
         </div>
@@ -338,7 +320,7 @@ section+section{margin-top:3rem;}
   </div>
 </div>
 
-<!-- 참여자: 이름 입력 -->
+<!-- 참여자 이름 -->
 <div id="pname-view" class="view lp">
   <div class="con">
     <button class="back-btn" onclick="goHome()">← 홈</button>
@@ -352,7 +334,7 @@ section+section{margin-top:3rem;}
   </div>
 </div>
 
-<!-- 참여자: 시간 선택 -->
+<!-- 참여자 시간 선택 -->
 <div id="pselect-view" class="view lp">
   <div class="con con-lg">
     <div class="tag">응답 중 · <span id="psel-name"></span></div>
@@ -389,339 +371,490 @@ section+section{margin-top:3rem;}
 </div>
 
 <script>
-var IS_LOCAL = (location.protocol==='file:'||location.hostname==='localhost');
-var currentMeeting=null,currentName=null,unavailable=new Set(),dragMode=null,calYear,calMonth,selectedDates=new Set();
+var IS_LOCAL = (location.protocol === 'file:' || location.hostname === 'localhost');
+var currentMeeting = null;
+var currentName = null;
+var unavailable = new Set();
+var dragMode = null;
+var calYear, calMonth;
+var selectedDates = new Set();
 
-function genId(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);}
-function parseDate(iso){var p=iso.split('-');return new Date(Number(p[0]),Number(p[1])-1,Number(p[2]));}
-function fmtDate(iso){var d=parseDate(iso),days=['일','월','화','수','목','금','토'];return(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')';}
-function fmtTime(s){var t=s*30,h=Math.floor(t/60),m=t%60;return('0'+h).slice(-2)+':'+('0'+m).slice(-2);}
+// 유틸
+function genId() { return Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4); }
+function parseDate(iso) { var p=iso.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+function fmtDate(iso) { var d=parseDate(iso), days=['일','월','화','수','목','금','토']; return (d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')'; }
+function fmtTime(s) { var t=s*30, h=Math.floor(t/60), m=t%60; return ('0'+h).slice(-2)+':'+('0'+m).slice(-2); }
+function pad2(n) { return ('0'+n).slice(-2); }
 
-async function apiGet(id){
-  if(IS_LOCAL){var d=localStorage.getItem('m:'+id);return d?JSON.parse(d):null;}
-  var r=await fetch('/api/meetings?id='+encodeURIComponent(id));
-  if(r.status===404)return null;if(!r.ok)throw new Error('오류 '+r.status);return r.json();
+// API
+async function apiGet(id) {
+  if (IS_LOCAL) { var d=localStorage.getItem('m:'+id); return d ? JSON.parse(d) : null; }
+  var r = await fetch('/api/meetings?id='+encodeURIComponent(id));
+  if (r.status===404) return null;
+  if (!r.ok) throw new Error('오류 '+r.status);
+  return r.json();
 }
-async function apiCreate(m){
-  if(IS_LOCAL){localStorage.setItem('m:'+m.id,JSON.stringify(m));return m;}
-  var r=await fetch('/api/meetings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(m)});
-  if(!r.ok)throw new Error('생성실패');return r.json();
+async function apiCreate(m) {
+  if (IS_LOCAL) { localStorage.setItem('m:'+m.id, JSON.stringify(m)); return m; }
+  var r = await fetch('/api/meetings', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(m) });
+  if (!r.ok) throw new Error('생성실패');
+  return r.json();
 }
-async function apiSubmit(mid,name,slots){
-  if(IS_LOCAL){var m=JSON.parse(localStorage.getItem('m:'+mid));m.participants=m.participants||{};m.participants[name]={unavailableSlots:slots,submittedAt:Date.now()};localStorage.setItem('m:'+mid,JSON.stringify(m));return m;}
-  var r=await fetch('/api/meetings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({meetingId:mid,name:name,unavailableSlots:slots})});
-  if(!r.ok)throw new Error('제출실패');return r.json();
+async function apiSubmit(mid, name, slots) {
+  if (IS_LOCAL) {
+    var m = JSON.parse(localStorage.getItem('m:'+mid));
+    m.participants = m.participants || {};
+    m.participants[name] = { unavailableSlots: slots, submittedAt: Date.now() };
+    localStorage.setItem('m:'+mid, JSON.stringify(m));
+    return m;
+  }
+  var r = await fetch('/api/meetings', { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({meetingId:mid, name:name, unavailableSlots:slots}) });
+  if (!r.ok) throw new Error('제출실패');
+  return r.json();
 }
 
-function getMId(){return new URLSearchParams(location.search).get('m');}
-function getShareUrl(id){return location.origin+location.pathname+'?m='+id;}
+// 내 회의 목록 (localStorage)
+function saveMyMeeting(m) {
+  try {
+    var list = getMyMeetings();
+    var idx = list.findIndex(function(x){ return x.id===m.id; });
+    var item = { id:m.id, title:m.title, organizerName:m.organizerName, duration:m.duration, dates:m.dates, createdAt:m.createdAt||Date.now() };
+    if (idx>=0) list[idx]=item; else list.unshift(item);
+    if (list.length>20) list=list.slice(0,20);
+    localStorage.setItem('when-my-meetings', JSON.stringify(list));
+  } catch(e) {}
+}
+function getMyMeetings() {
+  try { var d=localStorage.getItem('when-my-meetings'); return d ? JSON.parse(d) : []; } catch(e) { return []; }
+}
+function delMyMeeting(id) {
+  if (!confirm('이 회의를 목록에서 삭제할까요?')) return;
+  var list = getMyMeetings().filter(function(x){ return x.id!==id; });
+  localStorage.setItem('when-my-meetings', JSON.stringify(list));
+  renderMyList();
+}
+async function openMyMeeting(id) {
+  showView('loading');
+  try {
+    var m = await apiGet(id);
+    if (m) {
+      currentMeeting = m;
+      sessionStorage.setItem('org:'+id, '1');
+      history.pushState({}, '', '?m='+id);
+      navigate('organizer');
+    } else {
+      alert('회의를 찾을 수 없습니다.');
+      showView('home');
+      renderMyList();
+    }
+  } catch(e) { alert('오류: '+e.message); showView('home'); }
+}
+function renderMyList() {
+  var list = getMyMeetings();
+  var section = document.getElementById('my-section');
+  var el = document.getElementById('my-list');
+  if (!el || !section) return;
+  if (list.length===0) { section.style.display='none'; return; }
+  section.style.display='block';
+  el.innerHTML = '';
 
-function showView(n){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});var el=document.getElementById(n+'-view');if(el)el.classList.add('active');window.scrollTo(0,0);}
-function navigate(n){showView(n);if(n==='create')initCalendar();if(n==='organizer')renderDashboard();if(n==='home')renderMyMeetings();}
-function goHome(){currentMeeting=null;currentName=null;unavailable=new Set();selectedDates=new Set();history.pushState({},'',location.pathname);showView('home');renderMyMeetings();}
+  list.forEach(function(m) {
+    var dateStr = '-';
+    if (m.dates && m.dates.length===1) {
+      dateStr = fmtDate(m.dates[0]);
+    } else if (m.dates && m.dates.length>1) {
+      dateStr = m.dates.length+'일';
+    }
+    var created = new Date(m.createdAt);
+    var createdStr = (created.getMonth()+1)+'/'+created.getDate()+' '+pad2(created.getHours())+':'+pad2(created.getMinutes());
 
-window.addEventListener('load',async function(){
-  var id=getMId();
-  if(id){showView('loading');
-    try{var m=await apiGet(id);
-      if(m){currentMeeting=m;var isOrg=sessionStorage.getItem('org:'+id)==='1';
-        if(isOrg){navigate('organizer');}else{fillPForm();showView('pname');}
-      }else{alert('회의를 찾을 수 없습니다.');showView('home');}
-    }catch(e){alert('오류: '+e.message);showView('home');}
-  }else{showView('home');}
+    var card = document.createElement('div');
+    card.className = 'my-card';
+    card.innerHTML =
+      '<div class="my-card-left">'+
+        '<div class="my-card-title">'+m.title+'</div>'+
+        '<div class="my-card-meta">'+
+          '<span>✦ '+m.organizerName+'</span> '+
+          '<span>⏱ '+m.duration+'분</span> '+
+          '<span>📅 '+dateStr+'</span> '+
+          '<span>🕐 '+createdStr+' 생성</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="my-card-right">'+
+        '<div class="my-cnt" id="cnt-'+m.id+'">👥 ...</div>'+
+        '<button class="my-del" title="삭제">✕</button>'+
+        '<span style="color:#a1a1aa;">→</span>'+
+      '</div>';
+
+    // 이벤트 바인딩
+    var mid = m.id;
+    card.querySelector('.my-del').addEventListener('click', function(e) {
+      e.stopPropagation();
+      delMyMeeting(mid);
+    });
+    card.addEventListener('click', function(e) {
+      if (e.target.classList.contains('my-del')) return;
+      openMyMeeting(mid);
+    });
+    el.appendChild(card);
+
+    // 참여자 수 비동기 업데이트
+    apiGet(mid).then(function(fresh) {
+      var cntEl = document.getElementById('cnt-'+mid);
+      if (!cntEl) return;
+      if (fresh) {
+        var cnt = Object.keys(fresh.participants||{}).length;
+        cntEl.textContent = '👥 '+cnt+'명 응답';
+        if (cnt>0) cntEl.classList.add('active');
+      } else {
+        cntEl.textContent = '⚠ 만료';
+      }
+    }).catch(function() {
+      var cntEl = document.getElementById('cnt-'+mid);
+      if (cntEl) cntEl.textContent = '👥 -';
+    });
+  });
+}
+
+// URL
+function getMId() { return new URLSearchParams(location.search).get('m'); }
+function getShareUrl(id) { return location.origin + location.pathname + '?m='+id; }
+
+// 화면 전환
+function showView(n) {
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+  var el = document.getElementById(n+'-view');
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+}
+function navigate(n) {
+  showView(n);
+  if (n==='create') initCalendar();
+  if (n==='organizer') renderDashboard();
+  if (n==='home') renderMyList();
+}
+function goHome() {
+  currentMeeting=null; currentName=null; unavailable=new Set(); selectedDates=new Set();
+  history.pushState({}, '', location.pathname);
+  showView('home');
+  renderMyList();
+}
+
+// 초기 로드
+window.addEventListener('load', async function() {
+  var id = getMId();
+  if (id) {
+    showView('loading');
+    try {
+      var m = await apiGet(id);
+      if (m) {
+        currentMeeting = m;
+        var isOrg = sessionStorage.getItem('org:'+id)==='1';
+        if (isOrg) { navigate('organizer'); } else { fillPForm(); showView('pname'); }
+      } else {
+        alert('회의를 찾을 수 없습니다.');
+        showView('home'); renderMyList();
+      }
+    } catch(e) { alert('오류: '+e.message); showView('home'); }
+  } else {
+    showView('home'); renderMyList();
+  }
 });
 
-function initCalendar(){
-  var today=new Date();today.setHours(0,0,0,0);calYear=today.getFullYear();calMonth=today.getMonth();selectedDates=new Set();renderCalendar();
-  var sEl=document.getElementById('start-hour'),eEl=document.getElementById('end-hour');sEl.innerHTML='';eEl.innerHTML='';
-  for(var i=0;i<48;i++){var o=document.createElement('option');o.value=i;o.textContent=fmtTime(i);sEl.appendChild(o);}
-  for(var i=1;i<=48;i++){var o=document.createElement('option');o.value=i;o.textContent=fmtTime(i);eEl.appendChild(o);}
-  sEl.value=18;eEl.value=36;
-  document.getElementById('date-count').textContent='0';document.getElementById('create-error').classList.add('hidden');
+// 캘린더
+function initCalendar() {
+  var today=new Date(); today.setHours(0,0,0,0);
+  calYear=today.getFullYear(); calMonth=today.getMonth(); selectedDates=new Set();
+  var sEl=document.getElementById('start-hour'), eEl=document.getElementById('end-hour');
+  sEl.innerHTML=''; eEl.innerHTML='';
+  for (var i=0;i<48;i++) { var o=document.createElement('option'); o.value=i; o.textContent=fmtTime(i); sEl.appendChild(o); }
+  for (var i=1;i<=48;i++) { var o=document.createElement('option'); o.value=i; o.textContent=fmtTime(i); eEl.appendChild(o); }
+  sEl.value=18; eEl.value=36;
+  document.getElementById('date-count').textContent='0';
+  document.getElementById('create-error').classList.add('hidden');
+  renderCalendar();
 }
-
-function renderCalendar(){
+function renderCalendar() {
   var months=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
   document.getElementById('cal-title').textContent=calYear+'년 '+months[calMonth];
-  var today=new Date();today.setHours(0,0,0,0);
-  var first=new Date(calYear,calMonth,1),last=new Date(calYear,calMonth+1,0);
-  document.getElementById('cal-prev').disabled=(calYear===today.getFullYear()&&calMonth<=today.getMonth())||(calYear<today.getFullYear());
-  var grid=document.getElementById('cal-days');grid.innerHTML='';
-  for(var i=0;i<first.getDay();i++){var e=document.createElement('div');e.className='db empty';grid.appendChild(e);}
-  for(var day=1;day<=last.getDate();day++){
-    var d=new Date(calYear,calMonth,day),iso=calYear+'-'+('0'+(calMonth+1)).slice(-2)+'-'+('0'+day).slice(-2),isPast=d<today;
-    var btn=document.createElement('button');btn.type='button';
+  var today=new Date(); today.setHours(0,0,0,0);
+  var first=new Date(calYear,calMonth,1), last=new Date(calYear,calMonth+1,0);
+  document.getElementById('cal-prev').disabled = (calYear<today.getFullYear()) || (calYear===today.getFullYear() && calMonth<=today.getMonth());
+  var grid=document.getElementById('cal-days'); grid.innerHTML='';
+  for (var i=0;i<first.getDay();i++) { var e=document.createElement('div'); e.className='db empty'; grid.appendChild(e); }
+  for (var day=1;day<=last.getDate();day++) {
+    var d=new Date(calYear,calMonth,day);
+    var iso=calYear+'-'+pad2(calMonth+1)+'-'+pad2(day);
+    var isPast=d<today;
+    var btn=document.createElement('button'); btn.type='button';
     btn.className='db'+(isPast?' past':'')+(selectedDates.has(iso)?' sel':'');
-    btn.textContent=day;btn.dataset.iso=iso;
-    if(!isPast)btn.onclick=function(){var v=this.dataset.iso;if(selectedDates.has(v)){selectedDates.delete(v);this.classList.remove('sel');}else{selectedDates.add(v);this.classList.add('sel');}document.getElementById('date-count').textContent=selectedDates.size;};
+    btn.textContent=day; btn.dataset.iso=iso;
+    if (!isPast) btn.onclick=function() {
+      var v=this.dataset.iso;
+      if (selectedDates.has(v)) { selectedDates.delete(v); this.classList.remove('sel'); }
+      else { selectedDates.add(v); this.classList.add('sel'); }
+      document.getElementById('date-count').textContent=selectedDates.size;
+    };
     grid.appendChild(btn);
   }
 }
-function changeMonth(d){var today=new Date();if(d<0&&calYear===today.getFullYear()&&calMonth<=today.getMonth())return;calMonth+=d;if(calMonth<0){calMonth=11;calYear--;}if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
-
-async function handleCreate(e){
-  e.preventDefault();var errEl=document.getElementById('create-error');errEl.classList.add('hidden');
-  var title=document.getElementById('meeting-title').value.trim(),orgName=document.getElementById('organizer-name').value.trim();
-  var duration=Number(document.getElementById('duration').value),startSlot=Number(document.getElementById('start-hour').value),endSlot=Number(document.getElementById('end-hour').value);
-  var dates=Array.from(selectedDates).sort();
-  if(!title){errEl.textContent='회의 제목을 입력해주세요.';errEl.classList.remove('hidden');return;}
-  if(!orgName){errEl.textContent='주최자 이름을 입력해주세요.';errEl.classList.remove('hidden');return;}
-  if(dates.length===0){errEl.textContent='날짜를 선택해주세요.';errEl.classList.remove('hidden');return;}
-  if(endSlot<=startSlot){errEl.textContent='종료 시간이 시작 시간보다 늦어야 합니다.';errEl.classList.remove('hidden');return;}
-  var btn=e.target.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='생성 중...';
-  try{
-    var id=genId(),meeting={id:id,title:title,organizerName:orgName,duration:duration,startSlot:startSlot,endSlot:endSlot,dates:dates,createdAt:Date.now(),participants:{}};
-    var result=await apiCreate(meeting);currentMeeting=result;sessionStorage.setItem('org:'+id,'1');
-    saveMyMeeting(result);
-    history.pushState({},'','?m='+id);navigate('organizer');
-  }catch(err){errEl.textContent='생성 실패: '+err.message;errEl.classList.remove('hidden');btn.disabled=false;btn.textContent='회의 만들기 →';}
+function changeMonth(d) {
+  var today=new Date();
+  if (d<0 && calYear===today.getFullYear() && calMonth<=today.getMonth()) return;
+  calMonth+=d;
+  if (calMonth<0) { calMonth=11; calYear--; }
+  if (calMonth>11) { calMonth=0; calYear++; }
+  renderCalendar();
 }
 
-function renderDashboard(){
-  if(!currentMeeting)return;var m=currentMeeting;
-  m.startSlot=Number(m.startSlot);m.endSlot=Number(m.endSlot);m.duration=Number(m.duration);
+// 회의 생성
+async function handleCreate(e) {
+  e.preventDefault();
+  var errEl=document.getElementById('create-error'); errEl.classList.add('hidden');
+  var title=document.getElementById('meeting-title').value.trim();
+  var orgName=document.getElementById('organizer-name').value.trim();
+  var duration=Number(document.getElementById('duration').value);
+  var startSlot=Number(document.getElementById('start-hour').value);
+  var endSlot=Number(document.getElementById('end-hour').value);
+  var dates=Array.from(selectedDates).sort();
+  if (!title) { errEl.textContent='회의 제목을 입력해주세요.'; errEl.classList.remove('hidden'); return; }
+  if (!orgName) { errEl.textContent='주최자 이름을 입력해주세요.'; errEl.classList.remove('hidden'); return; }
+  if (dates.length===0) { errEl.textContent='날짜를 선택해주세요.'; errEl.classList.remove('hidden'); return; }
+  if (endSlot<=startSlot) { errEl.textContent='종료 시간이 시작 시간보다 늦어야 합니다.'; errEl.classList.remove('hidden'); return; }
+  var btn=e.target.querySelector('button[type=submit]'); btn.disabled=true; btn.textContent='생성 중...';
+  try {
+    var id=genId();
+    var meeting={ id:id, title:title, organizerName:orgName, duration:duration, startSlot:startSlot, endSlot:endSlot, dates:dates, createdAt:Date.now(), participants:{} };
+    var result=await apiCreate(meeting);
+    currentMeeting=result;
+    saveMyMeeting(result);
+    sessionStorage.setItem('org:'+id, '1');
+    history.pushState({}, '', '?m='+id);
+    navigate('organizer');
+  } catch(err) {
+    errEl.textContent='생성 실패: '+err.message; errEl.classList.remove('hidden');
+    btn.disabled=false; btn.textContent='회의 만들기 →';
+  }
+}
+
+// 대시보드
+function renderDashboard() {
+  if (!currentMeeting) return;
+  var m=currentMeeting;
+  m.startSlot=Number(m.startSlot); m.endSlot=Number(m.endSlot); m.duration=Number(m.duration);
   document.getElementById('org-title').textContent=m.title;
   document.getElementById('org-info').textContent=m.organizerName+' · '+m.duration+'분 · 후보 '+m.dates.length+'일 · '+fmtTime(m.startSlot)+' - '+fmtTime(m.endSlot);
   document.getElementById('org-link').textContent=getShareUrl(m.id);
   renderResults();
 }
-async function refreshDashboard(){if(!currentMeeting)return;try{var f=await apiGet(currentMeeting.id);if(f){currentMeeting=f;renderDashboard();}}catch(e){}}
-
-function renderResults(){
-  var m=currentMeeting,parts=Object.entries(m.participants||{}),total=parts.length;
-  document.getElementById('org-count').textContent=total;
-  if(total===0){document.getElementById('org-empty').classList.remove('hidden');document.getElementById('org-content').classList.add('hidden');return;}
-  document.getElementById('org-empty').classList.add('hidden');document.getElementById('org-content').classList.remove('hidden');
-  var sm={};
-  for(var date of m.dates){for(var s=m.startSlot;s<m.endSlot;s++){var sid=date+'_'+s;var cnt=parts.filter(function(p){return(p[1].unavailableSlots||[]).includes(sid);}).length;sm[sid]={available:total-cnt,names:parts.filter(function(p){return(p[1].unavailableSlots||[]).includes(sid);}).map(function(p){return p[0];})};}}
-  renderRecs(m,sm,total);renderHeatmap(m,sm,total);renderParts(parts);
+async function refreshDashboard() {
+  if (!currentMeeting) return;
+  try { var f=await apiGet(currentMeeting.id); if (f) { currentMeeting=f; renderDashboard(); } } catch(e) {}
 }
-
-function renderRecs(m,sm,total){
-  var need=m.duration/30,recs=[];
-  for(var date of m.dates){for(var s=m.startSlot;s<=m.endSlot-need;s++){var us=new Set();for(var j=0;j<need;j++){var sid=date+'_'+(s+j);if(sm[sid])sm[sid].names.forEach(function(n){us.add(n);});}recs.push({date:date,start:s,end:s+need,avail:total-us.size,unavail:Array.from(us)});}}
-  recs.sort(function(a,b){return b.avail-a.avail||new Date(a.date)-new Date(b.date)||a.start-b.start;});
-  var html='';recs.slice(0,5).forEach(function(r,i){var p=r.avail===total,cls=p?'perfect':i===0?'top':'';html+='<div class="ri '+cls+'"><div class="rrank">#'+(i+1)+'</div><div><div class="rtime">'+fmtDate(r.date)+' · '+fmtTime(r.start)+' - '+fmtTime(r.end)+'</div><div class="rdesc">'+r.avail+'/'+total+'명 가능'+(r.unavail.length?' · 불가: '+r.unavail.join(', '):'')+'</div></div>'+(p?'<div class="rbadge">✓ 전원 가능</div>':'')+'</div>';});
+function renderResults() {
+  var m=currentMeeting, parts=Object.entries(m.participants||{}), total=parts.length;
+  document.getElementById('org-count').textContent=total;
+  if (total===0) { document.getElementById('org-empty').classList.remove('hidden'); document.getElementById('org-content').classList.add('hidden'); return; }
+  document.getElementById('org-empty').classList.add('hidden'); document.getElementById('org-content').classList.remove('hidden');
+  var sm={};
+  m.dates.forEach(function(date) {
+    for (var s=m.startSlot;s<m.endSlot;s++) {
+      var sid=date+'_'+s;
+      var unParts=parts.filter(function(p){ return (p[1].unavailableSlots||[]).includes(sid); });
+      sm[sid]={ available:total-unParts.length, names:unParts.map(function(p){ return p[0]; }) };
+    }
+  });
+  renderRecs(m,sm,total);
+  renderHeatmap(m,sm,total);
+  renderParts(parts,m,sm);
+}
+function renderRecs(m,sm,total) {
+  var need=m.duration/30, recs=[];
+  m.dates.forEach(function(date) {
+    for (var s=m.startSlot;s<=m.endSlot-need;s++) {
+      var us=new Set();
+      for (var j=0;j<need;j++) { var sid=date+'_'+(s+j); if (sm[sid]) sm[sid].names.forEach(function(n){ us.add(n); }); }
+      recs.push({ date:date, start:s, end:s+need, avail:total-us.size, unavail:Array.from(us) });
+    }
+  });
+  recs.sort(function(a,b){ return b.avail-a.avail || new Date(a.date)-new Date(b.date) || a.start-b.start; });
+  var html='';
+  recs.slice(0,5).forEach(function(r,i) {
+    var p=r.avail===total, cls=p?'perfect':i===0?'top':'';
+    html+='<div class="ri '+cls+'"><div class="rrank">#'+(i+1)+'</div><div><div class="rtime">'+fmtDate(r.date)+' · '+fmtTime(r.start)+' - '+fmtTime(r.end)+'</div><div class="rdesc">'+r.avail+'/'+total+'명 가능'+(r.unavail.length?' · 불가: '+r.unavail.join(', '):'')+'</div></div>'+(p?'<div class="rbadge">✓ 전원 가능</div>':'')+'</div>';
+  });
   document.getElementById('org-recs').innerHTML=html;
 }
-
-function renderHeatmap(m,sm,total){
-  var dn=['일','월','화','수','목','금','토'],html='<div class="gt"><div class="gr"><div class="tl"></div>';
-  for(var date of m.dates){var d=parseDate(date),dow=d.getDay(),cls=dow===0?' dsun':dow===6?' dsat':'';html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span>'+dn[dow]+'</span></div>';}
-  html+='</div>';
-  for(var s=m.startSlot;s<m.endSlot;s++){var ih=s%2===0;html+='<div class="gr'+(ih?' hr':'')+'"><div class="tl'+(ih?' h':' hf')+'">'+fmtTime(s)+'</div>';
-    for(var date of m.dates){var sid=date+'_'+s,info=sm[sid]||{available:total,names:[]},ratio=total>0?info.available/total:1,cc=ratio===1?'c5':ratio>=.75?'c4':ratio>=.5?'c3':ratio>=.25?'c2':'c1';html+='<div class="hc '+cc+'" title="'+(info.names.length?'불가: '+info.names.join(', '):'전원 가능')+'">'+info.available+'/'+total+'</div>';}
-    html+='</div>';}
-  html+='</div>';document.getElementById('org-heatmap').innerHTML=html;
-}
-
-// ── 내 회의 목록 (localStorage) ──────────────────────
-function saveMyMeeting(m){
-  try{
-    var list=getMyMeetings();
-    // 이미 있으면 업데이트, 없으면 추가
-    var idx=list.findIndex(function(x){return x.id===m.id;});
-    var item={id:m.id,title:m.title,organizerName:m.organizerName,duration:m.duration,dates:m.dates,createdAt:m.createdAt||Date.now()};
-    if(idx>=0)list[idx]=item;else list.unshift(item);
-    // 최대 20개 유지
-    if(list.length>20)list=list.slice(0,20);
-    localStorage.setItem('my-meetings',JSON.stringify(list));
-  }catch(e){}
-}
-
-function getMyMeetings(){
-  try{var d=localStorage.getItem('my-meetings');return d?JSON.parse(d):[]}catch(e){return[];}
-}
-
-function deleteMyMeeting(id){
-  if(!confirm('이 회의를 목록에서 삭제할까요?'))return;
-  try{
-    var list=getMyMeetings().filter(function(x){return x.id!==id;});
-    localStorage.setItem('my-meetings',JSON.stringify(list));
-    renderMyMeetings();
-  }catch(e){}
-}
-
-async function renderMyMeetings(){
-  var list=getMyMeetings();
-  var el=document.getElementById('my-meetings-list');
-  var section=document.getElementById('my-meetings-section');
-  if(!el)return;
-
-  if(list.length===0){
-    section.style.display='none';
-    return;
-  }
-  section.style.display='block';
-
-  // 각 회의의 최신 참여자 수를 가져오기 (비동기)
-  var html='';
-  for(var i=0;i<list.length;i++){
-    var m=list[i];
-    var dateStr=m.dates&&m.dates.length>0?m.dates[0]+'외 '+(m.dates.length-1)+'일':'-';
-    if(m.dates&&m.dates.length===1){var d=parseDate(m.dates[0]),days=['일','월','화','수','목','금','토'];dateStr=(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')';}
-    var created=new Date(m.createdAt);
-    var createdStr=(created.getMonth()+1)+'/'+created.getDate()+' '+('0'+created.getHours()).slice(-2)+':'+('0'+created.getMinutes()).slice(-2);
-    html+='<div class="my-card" onclick="openMyMeeting(\'' + m.id + '\')">';
-    html+='<div class="my-card-left">';
-    html+='<div class="my-card-title">'+m.title+'</div>';
-    html+='<div class="my-card-meta">';
-    html+='<span>✦ '+m.organizerName+'</span>';
-    html+='<span>⏱ '+m.duration+'분</span>';
-    html+='<span>📅 '+dateStr+'</span>';
-    html+='<span>🕐 '+createdStr+' 생성</span>';
-    html+='</div></div>';
-    html+='<div class="my-card-right">';
-    html+='<div class="my-card-cnt" id="cnt-'+m.id+'">👥 확인 중...</div>';
-    html+='<button onclick="deleteMyMeeting(''+m.id+'',event)" style="background:none;border:none;color:#d4d4d8;font-size:1rem;padding:.25rem;cursor:pointer;" title="목록에서 삭제">✕</button>';
-    html+='<div class="my-card-arrow">→</div>';
-    html+='</div></div>';
-  }
-  el.innerHTML=html;
-
-  // 비동기로 참여자 수 업데이트
-  list.forEach(async function(m){
-    try{
-      var fresh=await apiGet(m.id);
-      var cntEl=document.getElementById('cnt-'+m.id);
-      if(!cntEl)return;
-      if(fresh){
-        var cnt=Object.keys(fresh.participants||{}).length;
-        cntEl.textContent='👥 '+cnt+'명 응답';
-        cntEl.className='my-card-cnt'+(cnt>0?' has-resp':'');
-        // 최신 데이터로 저장 업데이트
-        saveMyMeeting(fresh);
-      }else{
-        cntEl.textContent='⚠ 만료됨';
-      }
-    }catch(e){
-      var cntEl=document.getElementById('cnt-'+m.id);
-      if(cntEl)cntEl.textContent='👥 -';
-    }
+function renderHeatmap(m,sm,total) {
+  var dn=['일','월','화','수','목','금','토'], html='<div class="gt"><div class="gr"><div class="tl"></div>';
+  m.dates.forEach(function(date) {
+    var d=parseDate(date), dow=d.getDay(), cls=dow===0?' dsun':dow===6?' dsat':'';
+    html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span>'+dn[dow]+'</span></div>';
   });
-}
-
-async function openMyMeeting(id){
-  showView('loading');
-  try{
-    var m=await apiGet(id);
-    if(m){
-      currentMeeting=m;
-      sessionStorage.setItem('org:'+id,'1');
-      history.pushState({},'','?m='+id);
-      navigate('organizer');
-    }else{
-      alert('회의를 찾을 수 없습니다. 삭제되었거나 만료되었을 수 있어요.');
-      showView('home');
-      renderMyMeetings();
-    }
-  }catch(e){
-    alert('불러오기 실패: '+e.message);
-    showView('home');
+  html+='</div>';
+  for (var s=m.startSlot;s<m.endSlot;s++) {
+    var ih=s%2===0;
+    html+='<div class="gr'+(ih?' hr':'')+'"><div class="tl'+(ih?' h':' hf')+'">'+fmtTime(s)+'</div>';
+    m.dates.forEach(function(date) {
+      var sid=date+'_'+s, info=sm[sid]||{available:total,names:[]};
+      var ratio=total>0?info.available/total:1;
+      var cc=ratio===1?'c5':ratio>=.75?'c4':ratio>=.5?'c3':ratio>=.25?'c2':'c1';
+      html+='<div class="hc '+cc+'" title="'+(info.names.length?'불가: '+info.names.join(', '):'전원 가능')+'">'+info.available+'/'+total+'</div>';
+    });
+    html+='</div>';
   }
+  html+='</div>';
+  document.getElementById('org-heatmap').innerHTML=html;
 }
+function renderParts(parts, m, sm) {
+  var el=document.getElementById('org-participants');
+  el.innerHTML='';
+  parts.forEach(function(p, idx) {
+    var name=p[0], slots=p[1].unavailableSlots||[];
+    var submitted=p[1].submittedAt ? new Date(p[1].submittedAt) : null;
+    var submittedStr=submitted ? (submitted.getMonth()+1)+'/'+submitted.getDate()+' '+pad2(submitted.getHours())+':'+pad2(submitted.getMinutes()) : '';
 
-function renderParts(parts){
-  var m=currentMeeting;
-  var html='';
-  parts.forEach(function(p,idx){
-    var name=p[0],slots=p[1].unavailableSlots||[];
-    var submittedAt=p[1].submittedAt?new Date(p[1].submittedAt).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
-    // 날짜별로 그룹핑
+    // 날짜별 그룹핑
     var byDate={};
-    slots.forEach(function(sid){
-      var parts2=sid.split('_'),date=parts2[0],slot=Number(parts2[1]);
-      if(!byDate[date])byDate[date]=[];
+    slots.forEach(function(sid) {
+      var parts2=sid.split('_'), date=parts2[0], slot=Number(parts2[1]);
+      if (!byDate[date]) byDate[date]=[];
       byDate[date].push(slot);
     });
-    Object.keys(byDate).forEach(function(d){byDate[d].sort(function(a,b){return a-b;});});
+    Object.keys(byDate).forEach(function(d){ byDate[d].sort(function(a,b){ return a-b; }); });
+
+    var card=document.createElement('div');
+    card.className='pc';
+
     var bodyHtml='';
-    if(slots.length===0){
-      bodyHtml='<div class="no-slots">✓ 모든 시간 가능</div>';
+    if (slots.length===0) {
+      bodyHtml='<div class="all-ok">✓ 모든 시간 가능</div>';
     } else {
-      bodyHtml='<div class="slots-wrap">';
       var sortedDates=Object.keys(byDate).sort();
-      sortedDates.forEach(function(date){
-        var d=parseDate(date),days=['일','월','화','수','목','금','토'];
-        bodyHtml+='<div class="slot-date-group">';
-        bodyHtml+='<div class="slot-date-label">'+(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+days[d.getDay()]+')</div>';
-        bodyHtml+='<div class="slot-chips">';
-        byDate[date].forEach(function(s){
-          bodyHtml+='<span class="slot-chip">✕ '+fmtTime(s)+'</span>';
-        });
+      sortedDates.forEach(function(date) {
+        bodyHtml+='<div class="slot-grp"><div class="slot-date">'+fmtDate(date)+'</div><div class="slot-chips">';
+        byDate[date].forEach(function(s){ bodyHtml+='<span class="slot-chip">✕ '+fmtTime(s)+'</span>'; });
         bodyHtml+='</div></div>';
       });
-      bodyHtml+='</div>';
     }
-    html+='<div class="pc">';
-    html+='<div class="pc-header" onclick="togglePart('+idx+')">';
-    html+='<div class="pc-left"><div class="pav">'+name.charAt(0)+'</div>';
-    html+='<div><div class="pn">'+name+'</div>';
-    html+='<div class="pi">'+(slots.length===0?'전원 가능':'불가 '+slots.length+'개 슬롯')+(submittedAt?' · '+submittedAt:'')+'</div></div></div>';
-    html+='<div class="pc-toggle"><span id="toggle-icon-'+idx+'">▼</span></div>';
-    html+='</div>';
-    html+='<div class="pc-body collapsed" id="pc-body-'+idx+'">'+bodyHtml+'</div>';
-    html+='</div>';
+
+    card.innerHTML=
+      '<div class="pc-hd" id="pc-hd-'+idx+'">'+
+        '<div class="pc-left">'+
+          '<div class="pav">'+name.charAt(0)+'</div>'+
+          '<div>'+
+            '<div class="pn">'+name+'</div>'+
+            '<div class="pi">'+(slots.length===0?'전원 가능':'불가 '+slots.length+'개 슬롯')+(submittedStr?' · '+submittedStr:'')+'</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="pc-toggle">▼</div>'+
+      '</div>'+
+      '<div class="pc-body coll" id="pc-body-'+idx+'">'+bodyHtml+'</div>';
+
+    // 토글 이벤트
+    card.querySelector('.pc-hd').addEventListener('click', function() {
+      var body=card.querySelector('.pc-body');
+      var toggle=card.querySelector('.pc-toggle');
+      if (body.classList.contains('coll')) { body.classList.remove('coll'); toggle.textContent='▲'; }
+      else { body.classList.add('coll'); toggle.textContent='▼'; }
+    });
+
+    el.appendChild(card);
   });
-  document.getElementById('org-participants').innerHTML=html;
 }
-
-function togglePart(idx){
-  var body=document.getElementById('pc-body-'+idx);
-  var icon=document.getElementById('toggle-icon-'+idx);
-  if(body.classList.contains('collapsed')){body.classList.remove('collapsed');icon.textContent='▲';}
-  else{body.classList.add('collapsed');icon.textContent='▼';}
-}
-
-function copyLink(){
+function copyLink() {
   var link=document.getElementById('org-link').textContent;
-  navigator.clipboard.writeText(link).then(function(){var b=document.getElementById('copy-btn');b.textContent='✓ 복사됨!';b.style.background='#22c55e';setTimeout(function(){b.textContent='링크 복사';b.style.background='';},2000);});
+  navigator.clipboard.writeText(link).then(function() {
+    var b=document.getElementById('copy-btn'); b.textContent='✓ 복사됨!'; b.style.background='#22c55e';
+    setTimeout(function(){ b.textContent='링크 복사'; b.style.background=''; }, 2000);
+  });
 }
 
-function fillPForm(){
-  var m=currentMeeting;m.startSlot=Number(m.startSlot);m.endSlot=Number(m.endSlot);m.duration=Number(m.duration);
+// 참여자
+function fillPForm() {
+  var m=currentMeeting;
+  m.startSlot=Number(m.startSlot); m.endSlot=Number(m.endSlot); m.duration=Number(m.duration);
   document.getElementById('pname-title').textContent=m.title||'회의';
   document.getElementById('pname-desc').textContent=(m.organizerName||'주최자')+'님이 회의 일정을 조율 중입니다. '+m.duration+'분 · '+fmtTime(m.startSlot)+' - '+fmtTime(m.endSlot);
   document.getElementById('pname-input').value='';
 }
-
-function proceedToSelect(){
-  var name=document.getElementById('pname-input').value.trim();if(!name)return;
-  currentName=name;currentMeeting.startSlot=Number(currentMeeting.startSlot);currentMeeting.endSlot=Number(currentMeeting.endSlot);currentMeeting.duration=Number(currentMeeting.duration);
-  var ex=(currentMeeting.participants||{})[name];unavailable=new Set(ex?ex.unavailableSlots:[]);
-  document.getElementById('psel-name').textContent=name;document.getElementById('psel-title').textContent=currentMeeting.title;
-  renderSelectGrid();showView('pselect');
+function proceedToSelect() {
+  var name=document.getElementById('pname-input').value.trim(); if (!name) return;
+  currentName=name;
+  currentMeeting.startSlot=Number(currentMeeting.startSlot);
+  currentMeeting.endSlot=Number(currentMeeting.endSlot);
+  currentMeeting.duration=Number(currentMeeting.duration);
+  var ex=(currentMeeting.participants||{})[name];
+  unavailable=new Set(ex?ex.unavailableSlots:[]);
+  document.getElementById('psel-name').textContent=name;
+  document.getElementById('psel-title').textContent=currentMeeting.title;
+  renderSelectGrid(); showView('pselect');
 }
-
-function renderSelectGrid(){
-  var m=currentMeeting,dn=['일','월','화','수','목','금','토'],html='<div class="gt"><div class="gr"><div class="tl"></div>';
-  for(var date of m.dates){var d=parseDate(date),dow=d.getDay(),cls=dow===0?' dsun':dow===6?' dsat':'';html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span class="dwl'+(dow===0?' sun':dow===6?' sat':'')+'">'+dn[dow]+'</span></div>';}
+function renderSelectGrid() {
+  var m=currentMeeting, dn=['일','월','화','수','목','금','토'];
+  var html='<div class="gt"><div class="gr"><div class="tl"></div>';
+  m.dates.forEach(function(date) {
+    var d=parseDate(date), dow=d.getDay(), cls=dow===0?' dsun':dow===6?' dsat':'';
+    html+='<div class="ch'+cls+'">'+(d.getMonth()+1)+'월<br><strong>'+d.getDate()+'</strong><br><span class="dwl'+(dow===0?' sun':dow===6?' sat':'')+'">'+dn[dow]+'</span></div>';
+  });
   html+='</div>';
-  for(var s=m.startSlot;s<m.endSlot;s++){var ih=s%2===0;html+='<div class="gr'+(ih?' hr':'')+'"><div class="tl'+(ih?' h':' hf')+'">'+fmtTime(s)+'</div>';
-    for(var date of m.dates){var sid=date+'_'+s,dow=parseDate(date).getDay(),isUn=unavailable.has(sid),cc=dow===0?' ssun':dow===6?' ssat':'';html+='<button type="button" class="ts'+(isUn?' un':cc)+'" data-sid="'+sid+'" onmousedown="sd(\''+sid+'\')" onmouseenter="se(\''+sid+'\')" ontouchstart="sd(\''+sid+'\');event.preventDefault();">'+(isUn?'✕':'')+'</button>';}
-    html+='</div>';}
-  html+='</div>';document.getElementById('psel-grid').innerHTML=html;updateCnt();
+  for (var s=m.startSlot;s<m.endSlot;s++) {
+    var ih=s%2===0;
+    html+='<div class="gr'+(ih?' hr':'')+'"><div class="tl'+(ih?' h':' hf')+'">'+fmtTime(s)+'</div>';
+    m.dates.forEach(function(date) {
+      var sid=date+'_'+s, dow=parseDate(date).getDay(), isUn=unavailable.has(sid);
+      var cc=dow===0?' ssun':dow===6?' ssat':'';
+      html+='<button type="button" class="ts'+(isUn?' un':cc)+'" data-sid="'+sid+'">'+(isUn?'✕':'')+'</button>';
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+  document.getElementById('psel-grid').innerHTML=html;
+
+  // 이벤트 위임
+  document.getElementById('psel-grid').addEventListener('mousedown', function(e) {
+    var btn=e.target.closest('[data-sid]'); if (!btn) return;
+    var sid=btn.dataset.sid;
+    dragMode=unavailable.has(sid)?'remove':'add';
+    toggleSlot(sid);
+  });
+  document.getElementById('psel-grid').addEventListener('mouseover', function(e) {
+    if (!dragMode) return;
+    var btn=e.target.closest('[data-sid]'); if (!btn) return;
+    var sid=btn.dataset.sid;
+    if (dragMode==='add' && !unavailable.has(sid)) { unavailable.add(sid); updateSlot(sid); updateCnt(); }
+    if (dragMode==='remove' && unavailable.has(sid)) { unavailable.delete(sid); updateSlot(sid); updateCnt(); }
+  });
+  updateCnt();
 }
-
-function sd(sid){dragMode=unavailable.has(sid)?'remove':'add';tgl(sid);}
-function se(sid){if(!dragMode)return;if(dragMode==='add'&&!unavailable.has(sid)){unavailable.add(sid);us(sid);updateCnt();}if(dragMode==='remove'&&unavailable.has(sid)){unavailable.delete(sid);us(sid);updateCnt();}}
-function tgl(sid){if(unavailable.has(sid))unavailable.delete(sid);else unavailable.add(sid);us(sid);updateCnt();}
-function us(sid){var btn=document.querySelector('[data-sid="'+sid+'"]');if(!btn)return;var dow=parseDate(sid.split('_')[0]).getDay();if(unavailable.has(sid)){btn.className='ts un';btn.textContent='✕';}else{btn.className='ts'+(dow===0?' ssun':dow===6?' ssat':'');btn.textContent='';}}
-function updateCnt(){document.getElementById('psel-count').textContent=unavailable.size;}
-function clearSlots(){unavailable.clear();renderSelectGrid();}
-
-async function submitResponse(){
-  var btn=document.getElementById('submit-btn');btn.disabled=true;btn.textContent='제출 중...';
-  try{var r=await apiSubmit(currentMeeting.id,currentName,Array.from(unavailable));currentMeeting=r;
+function toggleSlot(sid) {
+  if (unavailable.has(sid)) unavailable.delete(sid); else unavailable.add(sid);
+  updateSlot(sid); updateCnt();
+}
+function updateSlot(sid) {
+  var btn=document.querySelector('[data-sid="'+sid+'"]'); if (!btn) return;
+  var dow=parseDate(sid.split('_')[0]).getDay();
+  if (unavailable.has(sid)) { btn.className='ts un'; btn.textContent='✕'; }
+  else { btn.className='ts'+(dow===0?' ssun':dow===6?' ssat':''); btn.textContent=''; }
+}
+function updateCnt() { document.getElementById('psel-count').textContent=unavailable.size; }
+function clearSlots() { unavailable.clear(); renderSelectGrid(); }
+async function submitResponse() {
+  var btn=document.getElementById('submit-btn'); btn.disabled=true; btn.textContent='제출 중...';
+  try {
+    var r=await apiSubmit(currentMeeting.id, currentName, Array.from(unavailable));
+    currentMeeting=r;
     document.getElementById('done-name').textContent=currentName+'님의 응답이 저장되었습니다.';
     document.getElementById('done-count').textContent=unavailable.size+'개의 시간을 불가능으로 표시했습니다.';
     showView('done');
-  }catch(e){alert('제출 실패: '+e.message);btn.disabled=false;btn.textContent='응답 제출 ✓';}
+  } catch(e) { alert('제출 실패: '+e.message); btn.disabled=false; btn.textContent='응답 제출 ✓'; }
 }
 
-document.addEventListener('mouseup',function(){dragMode=null;});
-document.addEventListener('touchend',function(){dragMode=null;});
-setInterval(function(){if(document.getElementById('organizer-view')&&document.getElementById('organizer-view').classList.contains('active'))refreshDashboard();},5000);
+document.addEventListener('mouseup', function(){ dragMode=null; });
+document.addEventListener('touchend', function(){ dragMode=null; });
+setInterval(function(){
+  if (document.getElementById('organizer-view') && document.getElementById('organizer-view').classList.contains('active')) refreshDashboard();
+}, 5000);
 </script>
 </body>
 </html>
